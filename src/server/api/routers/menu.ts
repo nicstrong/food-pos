@@ -1,7 +1,7 @@
-import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, proectedProcedure as protectedProcedure } from "~/server/api/trpc";
 
 export const menuRouter = createTRPCRouter({
-  getAllMenuItems: privateProcedure.query(async ({ ctx }) => {
+  getMenuItems: protectedProcedure.query(async ({ ctx }) => {
     const res = await ctx.prisma.menuItem.findMany();
     return res;
   }),
