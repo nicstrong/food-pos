@@ -13,7 +13,7 @@ export function Order() {
         {order.map((item) => (
           <OrderLineItem key={item.item.id} item={item} />
         ))}
-      </ul>      
+      </ul>
       <div className={css.total}>
         <span>Total</span>
         <span>{`$${orderTotal.toFixed(2)}`}</span>
@@ -26,13 +26,14 @@ export function Order() {
 function OrderLineItem({ item }: { item: OrderItem }) {
   return (
     <li className={css.lineItem}>
-      <span>{`${item.item.description}${
-        item.quantity > 1 ? `(x${item.quantity})` : ""
-      }`}</span>
-      <span>{`$${parseFloat(item.item.price).toFixed(2)}`}</span>
-      <span>{`$${(parseFloat(item.item.price) * item.quantity).toFixed(
+      <span className={css.description}>{item.item.description}</span>
+      <span className={css.quantity}>{`x${item.quantity}`}</span>
+      <span className={css.price}>{`$${parseFloat(item.item.price).toFixed(
         2
       )}`}</span>
+      <span className={css.itemTotal}>{`$${(
+        parseFloat(item.item.price) * item.quantity
+      ).toFixed(2)}`}</span>
     </li>
   );
 }

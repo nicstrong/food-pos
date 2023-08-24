@@ -1,6 +1,6 @@
 import { AddIcon, Icon } from "@chakra-ui/icons";
 import classNames from "classnames";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { MdKebabDining } from "react-icons/md";
 import { type MenuItem } from "~/model";
 import { orderAtom } from "~/store/order";
@@ -9,10 +9,21 @@ import css from "./PosItem.module.scss";
 
 export function PosItem({ item }: { item: MenuItem }) {
   const { hover, onMouseEnter, onMouseLeave } = useHover(50);
-  const [order, setOrder] = useAtom(orderAtom);
+  const setOrder = useSetAtom(orderAtom);
 
   const handleClick = () => {
-    setOrder((order) => [...order, { quantity: 1, item }]);
+    setOrder((order) => {
+      const existingIndex = order.findIndex((i) => i.item.id === item.id);
+      if (existingIndex > -1) {
+        return order.map((i, index) => {
+          if (index === existingIndex) {
+            return { ...i, quantity: i.quantity + 1 };
+          }
+          return i;
+        });
+      }
+      return [...order, { quantity: 1, item }];
+    });
   };
 
   return (
