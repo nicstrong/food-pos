@@ -24,6 +24,8 @@ const config = {
 
     return config;
   },
+  // Required for UI css to be transpiled correctly 👇
+  transpilePackages: ['jotai-devtools'],
 };
 
 export default config;

@@ -8,19 +8,19 @@
 
     .nav {
         display: flex;
-        flex: 1;
+        flex: 2;
         background-color: var(--theme-primary-600);
     }
 
     .items {
         display: flex;
-        flex: 4;
-        background-color: var(--theme-primary-200); 
+        flex: 6;
+        background-color: var(--theme-primary-100); 
     }
 
     .order {
         display: flex;
-        flex: 2;
+        flex: 3;
     }
   }
   

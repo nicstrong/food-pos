@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Order } from "~/components/Order";
 import { PosItems } from "~/components/PosItems";
 import { PageLayout } from "~/components/layout";
 import css from "./index.module.scss";
@@ -18,7 +19,9 @@ export default function Home() {
           <div className={css.items}>
             <PosItems />
           </div>
-          <div className={css.order}></div>
+          <div className={css.order}>
+            <Order/>
+          </div>
         </div>
       </PageLayout>
     </>

@@ -1,5 +1,7 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Provider as JotaiProver, createStore } from "jotai";
+import { DevTools, useAtomsDebugValue } from "jotai-devtools";
 import { type AppType } from "next/app";
 import { Toaster } from "react-hot-toast";
 import "~/styles/globals.css";
@@ -8,27 +10,36 @@ import { api } from "~/utils/api";
 
 const colors = {
   brand: {
-    900: 'var(--theme-primary-900)',
-    800: 'var(--theme-primary-800)',
-    700: 'var(--theme-primary-700)',
-    600: 'var(--theme-primary-600)',
-    500: 'var(--theme-primary-500)',
-    400: 'var(--theme-primary-400)',
-    300: 'var(--theme-primary-300)',
-    200: 'var(--theme-primary-200)',
-    100: 'var(--theme-primary-100)',
-    50: 'var(--theme-primary-50)',
+    900: "var(--theme-primary-900)",
+    800: "var(--theme-primary-800)",
+    700: "var(--theme-primary-700)",
+    600: "var(--theme-primary-600)",
+    500: "var(--theme-primary-500)",
+    400: "var(--theme-primary-400)",
+    300: "var(--theme-primary-300)",
+    200: "var(--theme-primary-200)",
+    100: "var(--theme-primary-100)",
+    50: "var(--theme-primary-50)",
   },
-}
-export const theme = extendTheme({ colors })
+};
+export const theme = extendTheme({ colors });
+const customStore = createStore();
 
+const DebugAtoms = () => {
+  useAtomsDebugValue();
+  return null;
+};
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
-      <ChakraProvider  theme={theme}>
-        <Toaster position="bottom-right" />
-        <Component {...pageProps} />
+      <ChakraProvider theme={theme}>
+        <JotaiProver store={customStore}>
+          <DevTools store={customStore} />
+          {/* <DebugAtoms /> */}
+          <Toaster position="bottom-right" />
+          <Component {...pageProps} />
+        </JotaiProver>
       </ChakraProvider>
     </ClerkProvider>
   );
