@@ -12,3 +12,6 @@ export const orderTotalAtom = atom((get) => {
   );
 });
 orderTotalAtom.debugLabel = "orderTotal";
+
+export const orderEditAtom = atom(false)
+orderEditAtom.debugLabel = "orderEdit"

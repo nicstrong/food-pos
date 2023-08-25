@@ -6,30 +6,7 @@
 
   padding: 1em;
 
-  .lineItem {
-    display: flex;
-    flex-direction: row;
-
-    padding: 0.25rem 0;
-    align-items: bottom;
-
-    .description {
-      flex: 3;
-      font-weight: 600;
-    }
-    .quantity {
-      text-align: right;
-    }
-    .price {
-      flex: 1;
-      text-align: right;
-    }
-    .itemTotal {
-      flex: 1;
-      font-weight: 500;
-      text-align: right;
-    }
-  }
+ 
 
   .total {
     display: flex;
