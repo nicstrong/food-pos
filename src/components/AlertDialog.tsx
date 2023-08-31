@@ -1,13 +1,6 @@
-import {
-    AlertDialogBody,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogOverlay,
-    Button,
-    AlertDialog as ChakraAlertDialog,
-} from "@chakra-ui/react";
+import { Button, Modal } from "@mantine/core";
 import { useRef } from "react";
+import css from "./AlertDialog.module.scss";
 
 type Props = {
   isOpen: boolean;
@@ -29,29 +22,21 @@ export function AlertDialog({
   const cancelRef = useRef<HTMLButtonElement | null>(null);
 
   return (
-    <ChakraAlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
+    <Modal
+      opened={isOpen}
       onClose={() => onClose(false)}
+      centered
+      title={heading}
     >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {heading}
-          </AlertDialogHeader>
-
-          <AlertDialogBody>{message}</AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={() => onClose(false)}>
-              {cancelText ?? "Cancel"}
-            </Button>
-            <Button colorScheme="red" onClick={() => onClose(true)} ml={3}>
-              {okText}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </ChakraAlertDialog>
+      <span className={css.title}>{message}</span>
+      <div className={css.buttons}>
+        <Button ref={cancelRef} onClick={() => onClose(false)} variant="light">
+          {cancelText ?? "Cancel"}
+        </Button>
+        <Button onClick={() => onClose(true)} color="red">
+          {okText}
+        </Button>
+      </div>
+    </Modal>
   );
 }

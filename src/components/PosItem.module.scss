@@ -4,6 +4,7 @@
     position: relative;
   
     width: 10rem;
+    height: 10rem;
   
     .hoverOverlay {
       position: absolute;
@@ -30,13 +31,13 @@
       width: 100%;
       padding: 1em 0;
   
-      .icon {
+      >svg {
         height: 4rem;
         width: 4rem;
       }
 
       &.drink {
-        background-color: var(--chakra-colors-teal-400);
+        background-color: var(--mantine-color-teal-3);
       }
     }
   
@@ -62,7 +63,7 @@
       right: 0;
       width: 2rem;
       height: 2rem;
-      background-color: var(--chakra-colors-gray-600);
+      background-color: var(--mantine-color-gray-5);
   
       display: flex;
       justify-content: center;

@@ -1,6 +1,6 @@
-import { AddIcon, DeleteIcon, MinusIcon } from "@chakra-ui/icons";
-import { ButtonGroup, IconButton } from "@chakra-ui/react";
+import { ActionIcon } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
+import { MdAdd, MdOutlineDelete, MdRemove } from "react-icons/md";
 import { orderAtom, orderEditAtom, type OrderItem } from "~/store/order";
 import css from "./OrderLineItem.module.scss";
 
@@ -37,30 +37,33 @@ export function OrderLineItem({
   return (
     <li className={css.lineItem}>
       {edit && (
-        <ButtonGroup className={css.itemToolbar} isAttached >
-          <IconButton
+        <div className={css.itemToolbar}>
+          <ActionIcon
             aria-label="Remove item"
             title="Remove item"
-            variant='outline'
-            icon={<DeleteIcon />}
+            variant="light"
             onClick={() => handleRemove()}
-          />
-          <IconButton
+          >
+            <MdOutlineDelete />
+          </ActionIcon>
+          <ActionIcon
             aria-label="Increase quantity"
             title="Increase quantity"
-            variant='outline'
-            icon={<AddIcon />}
+            variant="light"
             onClick={() => handleInc()}
-          />
-          <IconButton
+          >
+            <MdAdd />
+          </ActionIcon>
+          <ActionIcon
             aria-label="Decrease quantity"
             title="Decrease quantity"
-            variant='outline'
-            isDisabled={item.quantity < 2}
-            icon={<MinusIcon />}
+            variant="light"
+            disabled={item.quantity < 2}
             onClick={() => handleDec()}
-          />
-        </ButtonGroup>
+          >
+            <MdRemove />
+          </ActionIcon>
+        </div>
       )}
       <span className={css.description}>{item.item.description}</span>
       <span className={css.quantity}>{`x${item.quantity}`}</span>

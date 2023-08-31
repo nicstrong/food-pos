@@ -1,24 +1,15 @@
-import {
-    Button,
-    Icon,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay,
-} from "@chakra-ui/react";
+import { Button, Modal } from "@mantine/core";
 import classNames from "classnames";
 import { useAtom, useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { BsCashStack, BsCreditCard2Front } from "react-icons/bs";
 import {
-    PayBy,
-    orderGstAtom,
-    orderNumberAtom,
-    orderPayByAtom,
-    orderTotalAtom,
-    paymentDenominationsAtom,
+  orderGstAtom,
+  orderNumberAtom,
+  orderPayByAtom,
+  orderTotalAtom,
+  paymentDenominationsAtom,
+  type PayBy,
 } from "~/store/order";
 import { distinctFilter } from "~/utils/array";
 import css from "./PayDialog.module.scss";
@@ -32,28 +23,19 @@ export function PayDialog({ isOpen, onClose }: Props) {
 
   return (
     <Modal
-      isOpen={isOpen}
+      opened={isOpen}
+      centered
       onClose={onClose}
-      closeOnOverlayClick={false}
-      size="5xl"
-      isCentered
+      centered
+      closeOnEscape
+      closeOnClickOutside={false}
+      title={`Pay order #${orderNumber}`}
+      size="60%"
     >
-      <ModalOverlay />
-      <ModalContent className={css.payDialog}>
-        <ModalHeader>{`Pay order #${orderNumber}`}</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody className={css.payDialog}>
-          <PayTotals />
-          <PayActions />
-        </ModalBody>
-
-        {/* <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
-          </Button>
-          <Button variant="ghost">Secondary Action</Button>
-        </ModalFooter> */}
-      </ModalContent>
+      <div className={css.payDialog}>
+        <PayTotals />
+        <PayActions />
+      </div>
     </Modal>
   );
 }
@@ -101,7 +83,7 @@ export function PayTotals() {
         </div>
       )}
 
-      <Button className={css.paid} colorScheme="green" onClick={() => handlePaid()}>
+      <Button className={css.paid} color="green" onClick={() => handlePaid()}>
         Paid
       </Button>
     </div>
@@ -132,7 +114,7 @@ export function PayActions() {
   return (
     <div className={css.payActions}>
       <div className={css.heading}>
-        <Icon as={BsCashStack} />
+        <BsCashStack />
         <span>Cash</span>
       </div>
 
@@ -141,7 +123,11 @@ export function PayActions() {
           <Button
             key={i}
             onClick={() => setOrderPayBy({ type: "cash", amount: p })}
-            isActive={orderPayBy?.type === "cash" && orderPayBy.amount === p}
+            className={
+              orderPayBy?.type === "cash" &&
+              orderPayBy.amount === p &&
+              css.selected
+            }
             variant="outline"
           >
             {`$${p.toFixed(2)}`}
@@ -151,21 +137,21 @@ export function PayActions() {
       </div>
 
       <div className={css.heading}>
-        <Icon as={BsCreditCard2Front} />
+        <BsCreditCard2Front />
         <span>Other</span>
       </div>
       <div className={css.buttons}>
         <Button
           variant="outline"
           onClick={() => setOrderPayBy({ type: "eftpos" })}
-          isActive={orderPayBy?.type === "eftpos"}
+          className={orderPayBy?.type === "eftpos" && css.selected}
         >
           EFTPOS
         </Button>
         <Button
           variant="outline"
           onClick={() => setOrderPayBy({ type: "wepay" })}
-          isActive={orderPayBy?.type === "wepay"}
+          className={orderPayBy?.type === "wepay" && css.selected}
         >
           Wepay
         </Button>

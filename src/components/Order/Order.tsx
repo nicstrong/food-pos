@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { orderAtom, orderEditAtom, orderTotalAtom } from "~/store/order";
@@ -31,7 +31,11 @@ export function Order() {
         <span>Total</span>
         <span>{`$${orderTotal.toFixed(2)}`}</span>
       </div>
-      <Button colorScheme="green" onClick={() => setShowPayDialog(true)} isDisabled={order.length === 0}>
+      <Button
+        color="green"
+        onClick={() => setShowPayDialog(true)}
+        disabled={order.length === 0}
+      >
         Pay
       </Button>
 

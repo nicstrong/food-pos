@@ -1,7 +1,7 @@
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { IconButton } from "@chakra-ui/react";
+import { ActionIcon } from "@mantine/core";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { MdAdd, MdEdit, MdOutlineDelete } from "react-icons/md";
 import { orderAtom, orderEditAtom } from "~/store/order";
 import { AlertDialog } from "../AlertDialog";
 import css from "./OrderToolbar.module.scss";
@@ -23,26 +23,32 @@ export function OrderToolbar() {
   return (
     <>
       <ul className={css.orderToolbar}>
-        <IconButton
+        <ActionIcon
+          variant="default"
           aria-label="Clear order"
           title="Clear order"
           onClick={() => setShowClear(true)}
-          isDisabled={order.length === 0}
-          icon={<DeleteIcon />}
-        />
-        <IconButton
+          disabled={order.length === 0}
+        >
+          <MdOutlineDelete />
+        </ActionIcon>
+        <ActionIcon
+          variant="default"
           aria-label="Add custom item"
           title="Add custom item"
-          icon={<AddIcon />}
-        />
-        <IconButton
+        >
+          <MdAdd />
+        </ActionIcon>
+        <ActionIcon
+          variant="default"
           aria-label="Edit order"
           title="Edit order"
-          isDisabled={order.length === 0}
+          disabled={order.length === 0}
           onClick={() => setEditMode(!editMode)}
-          icon={<EditIcon />}
-          isActive={editMode}
-        />
+          className={editMode  &&  css.editMode}
+        >
+          <MdEdit />
+        </ActionIcon>
       </ul>
       <AlertDialog
         isOpen={showClear}

@@ -11,7 +11,7 @@
   }
   .quantity {
     text-align: right;
-    color: var(--chakra-colors-blue-400);
+    color: var(--mantine-color-blue-4);
   }
   .price {
     flex: 1;
@@ -25,6 +25,11 @@
 
   .itemToolbar {
     margin-right: 0.5em;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+
     > button {
       width: 2.5rem;
       height: 2.5rem;
