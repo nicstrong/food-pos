@@ -13,5 +13,25 @@ export const orderTotalAtom = atom((get) => {
 });
 orderTotalAtom.debugLabel = "orderTotal";
 
-export const orderEditAtom = atom(false)
-orderEditAtom.debugLabel = "orderEdit"
+export const orderEditAtom = atom(false);
+orderEditAtom.debugLabel = "orderEdit";
+
+export const orderNumberAtom = atom(1);
+orderNumberAtom.debugLabel = "orderNumber";
+
+export const orderGstAtom = atom(0.15);
+orderGstAtom.debugLabel = "orderGst";
+
+export const paymentDenominationsAtom = atom([5, 10, 20, 50, 100]);
+paymentDenominationsAtom.debugLabel;
+
+export type PayBy =
+  | {
+      type: "cash";
+      amount: number;
+    }
+  | {
+      type: "eftpos" | "wepay";
+    };
+export const orderPayByAtom= atom<PayBy | null>(null);
+orderPayByAtom.debugLabel = "orderPayBy";

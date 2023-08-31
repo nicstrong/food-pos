@@ -1,7 +1,8 @@
 import { AddIcon, Icon } from "@chakra-ui/icons";
 import classNames from "classnames";
 import { useSetAtom } from "jotai";
-import { MdKebabDining } from "react-icons/md";
+import { IconType } from "react-icons";
+import { MdKebabDining, MdOutlineLocalDrink } from "react-icons/md";
 import { type MenuItem } from "~/model";
 import { orderAtom } from "~/store/order";
 import { useHover } from "~/utils/useHover";
@@ -26,6 +27,9 @@ export function PosItem({ item }: { item: MenuItem }) {
     });
   };
 
+  const drink = item.description === "Coke"
+  const icon: IconType = drink ? MdOutlineLocalDrink : MdKebabDining;
+
   return (
     <li
       className={css.posItem}
@@ -35,8 +39,8 @@ export function PosItem({ item }: { item: MenuItem }) {
       onClick={handleClick}
     >
       <div className={classNames(css.hoverOverlay, !hover && css.hidden)} />
-      <div className={css.top}>
-        <Icon className={css.icon} as={MdKebabDining} />
+      <div className={classNames(css.top, drink && css.drink)}>
+        <Icon className={css.icon} as={icon} />
       </div>
       <div className={css.bottom}>{item.description ?? "Blank"}</div>
 
