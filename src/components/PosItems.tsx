@@ -1,4 +1,4 @@
-import { Input, Loader } from "@mantine/core";
+import { Loader, TextInput } from "@mantine/core";
 import { MdOutlineSearch } from "react-icons/md";
 import { api } from "~/utils/api";
 import { PosItem } from "./PosItem";
@@ -9,7 +9,7 @@ export function PosItems() {
 
   return (
     <div className={css.posItems}>
-      <Input
+      <TextInput
         icon={<MdOutlineSearch />}
         variant="filled"
         placeholder="Search menu items"

@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { MantineProvider, MantineThemeOverride } from "@mantine/core";
+import { MantineProvider, type MantineThemeOverride } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Provider as JotaiProver, createStore } from "jotai";
 import { DevTools, useAtomsDebugValue } from "jotai-devtools";

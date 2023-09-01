@@ -1,8 +1,9 @@
-import { Button, Modal } from "@mantine/core";
+import { Button, Modal, TextInput } from "@mantine/core";
 import classNames from "classnames";
 import { useAtom, useAtomValue } from "jotai";
 import { useMemo } from "react";
 import { BsCashStack, BsCreditCard2Front } from "react-icons/bs";
+import { MdPersonOutline } from "react-icons/md";
 import {
   orderGstAtom,
   orderNumberAtom,
@@ -26,7 +27,6 @@ export function PayDialog({ isOpen, onClose }: Props) {
       opened={isOpen}
       centered
       onClose={onClose}
-      centered
       closeOnEscape
       closeOnClickOutside={false}
       title={`Pay order #${orderNumber}`}
@@ -114,6 +114,12 @@ export function PayActions() {
   return (
     <div className={css.payActions}>
       <div className={css.heading}>
+        <MdPersonOutline />
+        <span>Order name</span>
+      </div>
+      <TextInput className={css.input} placeholder="Order name" />
+
+      <div className={css.heading}>
         <BsCashStack />
         <span>Cash</span>
       </div>
@@ -123,11 +129,11 @@ export function PayActions() {
           <Button
             key={i}
             onClick={() => setOrderPayBy({ type: "cash", amount: p })}
-            className={
+            className={classNames(
               orderPayBy?.type === "cash" &&
-              orderPayBy.amount === p &&
-              css.selected
-            }
+                orderPayBy.amount === p &&
+                css.selected
+            )}
             variant="outline"
           >
             {`$${p.toFixed(2)}`}
@@ -144,14 +150,14 @@ export function PayActions() {
         <Button
           variant="outline"
           onClick={() => setOrderPayBy({ type: "eftpos" })}
-          className={orderPayBy?.type === "eftpos" && css.selected}
+          className={classNames(orderPayBy?.type === "eftpos" && css.selected)}
         >
           EFTPOS
         </Button>
         <Button
           variant="outline"
           onClick={() => setOrderPayBy({ type: "wepay" })}
-          className={orderPayBy?.type === "wepay" && css.selected}
+          className={classNames(orderPayBy?.type === "wepay" && css.selected)}
         >
           Wepay
         </Button>
