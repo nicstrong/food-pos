@@ -14,8 +14,18 @@ datasource db {
 model MenuItem {
   id          String   @id @default(cuid())
   description String   @db.VarChar(512)
-  price       Decimal  @default(0)
+  price       Float    @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   String
+}
+
+model PayMethod {
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(64)
+  surcharge Float    @default(0)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String
 }

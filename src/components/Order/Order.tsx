@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { orderAtom, orderEditAtom, orderTotalAtom } from "~/store/order";
+import { orderAtom, orderEditAtom, orderPayByAtom, orderTotalAtom } from "~/store/order";
 import css from "./Order.module.scss";
 import { OrderLineItem } from "./OrderLineItem";
 import { OrderToolbar } from "./OrderToolbar";
@@ -11,6 +11,7 @@ export function Order() {
   const order = useAtomValue(orderAtom);
   const orderTotal = useAtomValue(orderTotalAtom);
   const setEditMode = useSetAtom(orderEditAtom);
+  const setOrderPayBy = useSetAtom(orderPayByAtom);
   const [showPayDialog, setShowPayDialog] = useState(false);
 
   useEffect(() => {
@@ -18,6 +19,11 @@ export function Order() {
       setEditMode(false);
     }
   });
+
+  function closeDialog() {
+    setShowPayDialog(false);
+    setOrderPayBy(null);
+  }
 
   return (
     <div className={css.order}>
@@ -41,7 +47,7 @@ export function Order() {
 
       <PayDialog
         isOpen={showPayDialog}
-        onClose={() => setShowPayDialog(false)}
+        onClose={() => closeDialog()}
       />
     </div>
   );

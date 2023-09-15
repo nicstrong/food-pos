@@ -67,11 +67,11 @@ export function OrderLineItem({
       )}
       <span className={css.description}>{item.item.description}</span>
       <span className={css.quantity}>{`x${item.quantity}`}</span>
-      <span className={css.price}>{`$${parseFloat(item.item.price).toFixed(
+      <span className={css.price}>{`$${item.item.price.toFixed(
         2
       )}`}</span>
       <span className={css.itemTotal}>{`$${(
-        parseFloat(item.item.price) * item.quantity
+        item.item.price * item.quantity
       ).toFixed(2)}`}</span>
     </li>
   );

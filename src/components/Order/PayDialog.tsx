@@ -10,10 +10,10 @@ import {
   orderPayByAtom,
   orderTotalAtom,
   paymentDenominationsAtom,
-  type PayBy,
 } from "~/store/order";
 import { distinctFilter } from "~/utils/array";
 import css from "./PayDialog.module.scss";
+import { api } from "~/utils/api";
 
 type Props = {
   isOpen: boolean;
@@ -21,6 +21,7 @@ type Props = {
 };
 export function PayDialog({ isOpen, onClose }: Props) {
   const orderNumber = useAtomValue(orderNumberAtom);
+
 
   return (
     <Modal
@@ -30,7 +31,7 @@ export function PayDialog({ isOpen, onClose }: Props) {
       closeOnEscape
       closeOnClickOutside={false}
       title={`Pay order #${orderNumber}`}
-      size="60%"
+      size="70%"
     >
       <div className={css.payDialog}>
         <PayTotals />
@@ -48,12 +49,12 @@ export function PayTotals() {
     orderPayBy === null
       ? null
       : orderPayBy.type === "cash"
-      ? orderPayBy.amount
-      : orderTotal;
+        ? orderPayBy.amount
+        : orderTotal;
   const remainingAmount =
     tenderedAmount !== null ? tenderedAmount - orderTotal : null;
 
-  const handlePaid = () => {};
+  const handlePaid = () => { };
 
   return (
     <div className={css.payTotals}>
@@ -66,13 +67,17 @@ export function PayTotals() {
         <span>G.S.T</span>
         <span>{`${(orderTotal * gst).toFixed(2)}`}</span>
       </div>
+      {orderPayBy?.type === 'other' && orderPayBy.method.surcharge > 0 && <div className={css.item}>
+        <span>Surcharge</span>
+        <span>{`${(orderTotal * (orderPayBy.method.surcharge / 100)).toFixed(2)}`}</span>
+      </div>}
       <div className={classNames(css.item, css.bold, css.total)}>
         <span>Total</span>
         <span>${`${orderTotal.toFixed(2)}`}</span>
       </div>
       {orderPayBy !== null && tenderedAmount && (
         <div className={classNames(css.item)}>
-          <span>{getPayByType(orderPayBy)}</span>
+          <span>{orderPayBy?.type === 'other' ? orderPayBy.method.name : 'Cash'}</span>
           <span>{tenderedAmount.toFixed(2)}</span>
         </div>
       )}
@@ -90,21 +95,11 @@ export function PayTotals() {
   );
 }
 
-function getPayByType(orderPayBy: PayBy) {
-  switch (orderPayBy.type) {
-    case "cash":
-      return "Cash";
-    case "eftpos":
-      return "EFTPOS";
-    case "wepay":
-      return "Wepay";
-  }
-}
-
 export function PayActions() {
   const orderTotal = useAtomValue(orderTotalAtom);
   const paytDenominations = useAtomValue(paymentDenominationsAtom);
   const [orderPayBy, setOrderPayBy] = useAtom(orderPayByAtom);
+  const { data: payMethods, isLoading } = api.pay.getPayMethods.useQuery();
 
   const amounts = useMemo(
     () => getAmounts(orderTotal, paytDenominations, 5),
@@ -131,8 +126,8 @@ export function PayActions() {
             onClick={() => setOrderPayBy({ type: "cash", amount: p })}
             className={classNames(
               orderPayBy?.type === "cash" &&
-                orderPayBy.amount === p &&
-                css.selected
+              orderPayBy.amount === p &&
+              css.selected
             )}
             variant="outline"
           >
@@ -147,20 +142,14 @@ export function PayActions() {
         <span>Other</span>
       </div>
       <div className={css.buttons}>
-        <Button
+
+        {payMethods && payMethods.map((payMethod) => <Button
+          key={payMethod.id}
           variant="outline"
-          onClick={() => setOrderPayBy({ type: "eftpos" })}
-          className={classNames(orderPayBy?.type === "eftpos" && css.selected)}
-        >
-          EFTPOS
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => setOrderPayBy({ type: "wepay" })}
-          className={classNames(orderPayBy?.type === "wepay" && css.selected)}
-        >
-          Wepay
-        </Button>
+          onClick={() => setOrderPayBy({ type: 'other', method: payMethod })}
+          className={classNames(orderPayBy?.type === 'other' && orderPayBy?.method.id === payMethod.id && css.selected)}
+        >{payMethod.name}</Button>
+        )}
       </div>
     </div>
   );

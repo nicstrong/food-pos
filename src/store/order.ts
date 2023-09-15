@@ -1,15 +1,20 @@
 import { atom } from "jotai";
-import { type MenuItem } from "~/model";
+import { type PayMethood as PayMethod, type MenuItem } from "~/model";
 
 export type OrderItem = { item: MenuItem; quantity: number };
 export const orderAtom = atom<OrderItem[]>([]);
 orderAtom.debugLabel = "order";
 
 export const orderTotalAtom = atom((get) => {
-  return get(orderAtom).reduce(
-    (acc, { item, quantity }) => acc + parseFloat(item.price) * quantity,
+  const total = get(orderAtom).reduce(
+    (acc, { item, quantity }) => acc + item.price * quantity,
     0
   );
+  const payBy = get(orderPayByAtom)
+  if (payBy === null || payBy.type === 'cash' || payBy.method.surcharge === 0) {
+    return total;
+  } 
+  return total + (total * (payBy.method.surcharge/100));
 });
 orderTotalAtom.debugLabel = "orderTotal";
 
@@ -25,13 +30,16 @@ orderGstAtom.debugLabel = "orderGst";
 export const paymentDenominationsAtom = atom([5, 10, 20, 50, 100]);
 paymentDenominationsAtom.debugLabel;
 
+
 export type PayBy =
   | {
       type: "cash";
       amount: number;
     }
   | {
-      type: "eftpos" | "wepay";
+      type: "other"
+      method: PayMethod;
     };
+
 export const orderPayByAtom= atom<PayBy | null>(null);
 orderPayByAtom.debugLabel = "orderPayBy";

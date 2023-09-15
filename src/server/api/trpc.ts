@@ -101,4 +101,4 @@ const enforceUIserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
-export const proectedProcedure = publicProcedure.use(enforceUIserIsAuthed);
+export const protectedProcedure = publicProcedure.use(enforceUIserIsAuthed);

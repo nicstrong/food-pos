@@ -1,4 +1,4 @@
-import { createTRPCRouter, proectedProcedure as protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const menuRouter = createTRPCRouter({
   getMenuItems: protectedProcedure.query(async ({ ctx }) => {
