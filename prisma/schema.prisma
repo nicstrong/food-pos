@@ -12,7 +12,7 @@ datasource db {
 }
 
 model MenuItem {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   description String   @db.VarChar(512)
   price       Float    @default(0)
   createdAt   DateTime @default(now())
@@ -21,11 +21,21 @@ model MenuItem {
 }
 
 model PayMethod {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   name      String   @db.VarChar(64)
   surcharge Float    @default(0)
   order     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   createdBy String
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  orderNumber Int      @default(autoincrement())
+  name        String   @db.VarChar(64)
+  email       String?
+  createdAt   DateTime @default(now())
+  createdBy   String
+  orderItems OrderItems[]
 }
