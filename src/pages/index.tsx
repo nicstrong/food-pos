@@ -1,11 +1,11 @@
 import Head from "next/head";
-import { Order } from "~/components/Order";
+import { PosOrder } from "~/components/PosOrder";
 import { PosItems } from "~/components/PosItems";
 import { PageLayout } from "~/components/layout";
 import css from "./index.module.scss";
 
 export default function Home() {
-  
+
   return (
     <>
       <Head>
@@ -20,7 +20,7 @@ export default function Home() {
             <PosItems />
           </div>
           <div className={css.order}>
-            <Order/>
+            <PosOrder />
           </div>
         </div>
       </PageLayout>

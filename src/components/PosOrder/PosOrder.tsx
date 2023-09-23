@@ -2,14 +2,14 @@ import { Button } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { orderItemsAtom, orderEditAtom, orderPayByAtom, orderTotalAtom } from "~/store/order";
-import css from "./Order.module.scss";
+import css from "./PosOrder.module.scss";
 import { OrderLineItem } from "./OrderLineItem";
 import { OrderToolbar } from "./OrderToolbar";
 import PayDialog from "../PayDialog";
 import type { Order } from "~/model";
 import { useResetOrder } from "~/store/hooks";
 
-export function Order() {
+export function PosOrder() {
   const order = useAtomValue(orderItemsAtom);
   const orderTotal = useAtomValue(orderTotalAtom);
   const setEditMode = useSetAtom(orderEditAtom);
@@ -23,8 +23,9 @@ export function Order() {
   });
 
   function onOrder(order?: Order) {
+    console.log('onOrder', order)
     setShowPayDialog(false);
-    if (order) {
+    if (order !== undefined) {
       resetOrder();
     }
   }

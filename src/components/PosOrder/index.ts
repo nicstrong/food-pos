@@ -1,2 +1,2 @@
-export { Order } from './Order';
+export { PosOrder } from './PosOrder';
 

@@ -22,7 +22,7 @@ export function PayDialog({ isOpen, onClose }: Props) {
     <Modal
       opened={isOpen}
       centered
-      onClose={onClose}
+      onClose={() => onClose()}
       closeOnEscape
       closeOnClickOutside={false}
       title={`Pay order #${orderNumber}`}
