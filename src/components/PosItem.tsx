@@ -3,13 +3,13 @@ import { useSetAtom } from "jotai";
 import { type IconType } from "react-icons";
 import { MdAdd, MdKebabDining, MdOutlineLocalDrink } from "react-icons/md";
 import { type MenuItem } from "~/model";
-import { orderAtom } from "~/store/order";
+import { orderItemsAtom } from "~/store/order";
 import { useHover } from "~/utils/useHover";
 import css from "./PosItem.module.scss";
 
 export function PosItem({ item }: { item: MenuItem }) {
   const { hover, onMouseEnter, onMouseLeave } = useHover(50);
-  const setOrder = useSetAtom(orderAtom);
+  const setOrder = useSetAtom(orderItemsAtom);
 
   const handleClick = () => {
     setOrder((order) => {

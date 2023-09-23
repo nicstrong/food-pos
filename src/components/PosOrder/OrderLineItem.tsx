@@ -1,7 +1,7 @@
 import { ActionIcon } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import { MdAdd, MdOutlineDelete, MdRemove } from "react-icons/md";
-import { orderAtom, orderEditAtom, type OrderItem } from "~/store/order";
+import { orderItemsAtom, orderEditAtom, type OrderItem } from "~/store/order";
 import css from "./OrderLineItem.module.scss";
 
 export function OrderLineItem({
@@ -11,7 +11,7 @@ export function OrderLineItem({
   item: OrderItem;
   index: number;
 }) {
-  const setOrder = useSetAtom(orderAtom);
+  const setOrder = useSetAtom(orderItemsAtom);
   const edit = useAtomValue(orderEditAtom);
 
   const handleRemove = () => {

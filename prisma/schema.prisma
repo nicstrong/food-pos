@@ -48,9 +48,10 @@ model Order {
   name            String      @db.VarChar(64)
   email           String?
   status          OrderStatus @default(CREATED)
-  paymentMethod   PayMethod   @relation(fields: [paymentMethodId], references: [id])
-  paymentMethodId String
-  surcharge       Float
+  paymentMethod   PayMethod?  @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId String?
+  amountTendered  Float?
+  surcharge       Float?
   createdAt       DateTime    @default(now())
   createdBy       String
   orderItems      OrderItem[]

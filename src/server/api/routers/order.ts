@@ -5,10 +5,11 @@ export const orderRouter = createTRPCRouter({
     createOrder: protectedProcedure
         .input(z.object({
             name: z.string(),
-            email: z.string().optional(),
+            email: z.string().nullish(),
             status: z.enum(['CREATED', 'PAID', 'STARTED', 'COMPLETED', 'CANCELLED']),
-            paymentMethodId: z.string(),
-            surcharge: z.number(),
+            paymentMethodId: z.string().nullish(),
+            amountTendered: z.number().nullish(),
+            surcharge: z.number().nullish(),
             items: z.array(z.object({
                 menuItemId: z.string(),
                 quantity: z.number(),
@@ -24,6 +25,7 @@ export const orderRouter = createTRPCRouter({
                     createdBy: ctx.auth.userId,
                     status: input.status,
                     paymentMethodId: input.paymentMethodId,
+                    amountTendered: input.amountTendered,
                     surcharge: input.surcharge,
                     orderItems: {
                         createMany: {
@@ -36,6 +38,7 @@ export const orderRouter = createTRPCRouter({
                     }
                 }
             });
+            return res;
         })
 })
 

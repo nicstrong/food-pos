@@ -1,0 +1,40 @@
+.actions {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  width: 90rem;
+  padding: 1em;
+
+  .heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25em;
+
+    > span {
+      font-weight: 600;
+    }
+  }
+
+  .input {
+    padding: 1em;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    gap: 1em;
+
+    padding: 1em;
+
+    > button {
+      width: 9rem;
+      height: 4rem;
+    }
+  }
+}
+
+.selected  {
+  background-color: var(--mantine-color-blue-1);
+}

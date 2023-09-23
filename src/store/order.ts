@@ -2,11 +2,17 @@ import { atom } from "jotai";
 import { type PayMethood as PayMethod, type MenuItem } from "~/model";
 
 export type OrderItem = { item: MenuItem; quantity: number };
-export const orderAtom = atom<OrderItem[]>([]);
-orderAtom.debugLabel = "order";
+export const orderItemsAtom = atom<OrderItem[]>([]);
+orderItemsAtom.debugLabel = "orderItems";
+
+export const orderNameAtom = atom<string>('');
+orderNameAtom.debugLabel = "orderName";
+
+export const orderEmailAtom = atom<string|null>(null);
+orderEmailAtom.debugLabel = "orderEmaill";
 
 export const orderTotalAtom = atom((get) => {
-  const total = get(orderAtom).reduce(
+  const total = get(orderItemsAtom).reduce(
     (acc, { item, quantity }) => acc + item.price * quantity,
     0
   );

@@ -2,19 +2,22 @@ import { ActionIcon } from "@mantine/core";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { MdAdd, MdEdit, MdOutlineDelete } from "react-icons/md";
-import { orderAtom, orderEditAtom } from "~/store/order";
+import { orderItemsAtom, orderEditAtom } from "~/store/order";
 import { AlertDialog } from "../AlertDialog";
 import css from "./OrderToolbar.module.scss";
+import { useResetOrder } from "~/store/hooks";
+import classNames from "classnames";
 
 export function OrderToolbar() {
-  const [order, setOrder] = useAtom(orderAtom);
+  const [order, setOrder] = useAtom(orderItemsAtom);
   const [editMode, setEditMode] = useAtom(orderEditAtom);
+  const resetOrder = useResetOrder();
 
   const [showClear, setShowClear] = useState(false);
 
   const handleClear = (ok: boolean) => {
     if (ok) {
-      setOrder([]);
+      resetOrder()
       setEditMode(false);
     }
     setShowClear(false);
@@ -45,7 +48,7 @@ export function OrderToolbar() {
           title="Edit order"
           disabled={order.length === 0}
           onClick={() => setEditMode(!editMode)}
-          className={editMode  &&  css.editMode}
+          className={classNames(editMode && css.editMode)}
         >
           <MdEdit />
         </ActionIcon>

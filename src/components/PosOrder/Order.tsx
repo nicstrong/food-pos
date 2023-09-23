@@ -1,18 +1,20 @@
 import { Button } from "@mantine/core";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { orderAtom, orderEditAtom, orderPayByAtom, orderTotalAtom } from "~/store/order";
+import { orderItemsAtom, orderEditAtom, orderPayByAtom, orderTotalAtom } from "~/store/order";
 import css from "./Order.module.scss";
 import { OrderLineItem } from "./OrderLineItem";
 import { OrderToolbar } from "./OrderToolbar";
-import { PayDialog } from "./PayDialog";
+import PayDialog from "../PayDialog";
+import type { Order } from "~/model";
+import { useResetOrder } from "~/store/hooks";
 
 export function Order() {
-  const order = useAtomValue(orderAtom);
+  const order = useAtomValue(orderItemsAtom);
   const orderTotal = useAtomValue(orderTotalAtom);
   const setEditMode = useSetAtom(orderEditAtom);
-  const setOrderPayBy = useSetAtom(orderPayByAtom);
   const [showPayDialog, setShowPayDialog] = useState(false);
+  const resetOrder = useResetOrder()
 
   useEffect(() => {
     if (order.length === 0) {
@@ -20,9 +22,11 @@ export function Order() {
     }
   });
 
-  function closeDialog() {
+  function onOrder(order?: Order) {
     setShowPayDialog(false);
-    setOrderPayBy(null);
+    if (order) {
+      resetOrder();
+    }
   }
 
   return (
@@ -47,7 +51,7 @@ export function Order() {
 
       <PayDialog
         isOpen={showPayDialog}
-        onClose={() => closeDialog()}
+        onClose={onOrder}
       />
     </div>
   );
