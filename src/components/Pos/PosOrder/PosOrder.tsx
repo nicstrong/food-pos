@@ -5,8 +5,8 @@ import { orderItemsAtom, orderEditAtom, orderPayByAtom, orderTotalAtom } from "~
 import css from "./PosOrder.module.scss";
 import { OrderLineItem } from "./OrderLineItem";
 import { OrderToolbar } from "./OrderToolbar";
-import PayDialog from "../PayDialog";
-import type { Order } from "~/model";
+import PayDialog from "../../PayDialog";
+import type { CreateOrder } from "~/model";
 import { useResetOrder } from "~/store/hooks";
 
 export function PosOrder() {
@@ -22,7 +22,7 @@ export function PosOrder() {
     }
   });
 
-  function onOrder(order?: Order) {
+  function onOrder(order?: CreateOrder) {
     console.log('onOrder', order)
     setShowPayDialog(false);
     if (order !== undefined) {

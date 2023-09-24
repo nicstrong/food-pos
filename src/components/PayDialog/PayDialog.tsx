@@ -5,14 +5,14 @@ import {
 } from "~/store/order";
 import css from "./PayDialog.module.scss";
 import { api } from "~/utils/api";
-import { Order } from "~/model";
+import { CreateOrder } from "~/model";
 import { Totals } from "./Totals";
 import { Actions } from "./Actions";
 
 
 type Props = {
   isOpen: boolean;
-  onClose: (order?: Order) => void;  
+  onClose: (order?: CreateOrder) => void;  
 };
 export function PayDialog({ isOpen, onClose }: Props) {
   const orderNumber = useAtomValue(orderNumberAtom);

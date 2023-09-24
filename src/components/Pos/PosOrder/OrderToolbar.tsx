@@ -3,10 +3,10 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { MdAdd, MdEdit, MdOutlineDelete } from "react-icons/md";
 import { orderItemsAtom, orderEditAtom } from "~/store/order";
-import { AlertDialog } from "../AlertDialog";
 import css from "./OrderToolbar.module.scss";
 import { useResetOrder } from "~/store/hooks";
 import classNames from "classnames";
+import { AlertDialog } from "../../shared/AlertDialog";
 
 export function OrderToolbar() {
   const [order, setOrder] = useAtom(orderItemsAtom);
@@ -53,7 +53,7 @@ export function OrderToolbar() {
           <MdEdit />
         </ActionIcon>
       </ul>
-      <AlertDialog
+      <AlertDialog      
         isOpen={showClear}
         onClose={handleClear}
         heading="Clear order"

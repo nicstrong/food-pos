@@ -1,5 +1,7 @@
+import '@mantine/core/styles.css';
+
 import { ClerkProvider } from "@clerk/nextjs";
-import { MantineProvider, type MantineThemeOverride } from "@mantine/core";
+import { MantineProvider, createTheme } from '@mantine/core';
 import { Notifications } from "@mantine/notifications";
 import { Provider as JotaiProver, createStore } from "jotai";
 import { DevTools, useAtomsDebugValue } from "jotai-devtools";
@@ -8,7 +10,7 @@ import "~/styles/globals.css";
 import "~/styles/theme.scss";
 import { api } from "~/utils/api";
 
-const theme: MantineThemeOverride = {
+const theme = createTheme({
   colors: {
     slate: [
       "var(--theme-primary-50)",
@@ -23,7 +25,7 @@ const theme: MantineThemeOverride = {
       "var(--theme-primary-900)",
     ],
   },
-};
+});
 
 const customStore = createStore();
 
@@ -35,7 +37,7 @@ const DebugAtoms = () => {
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
-      <MantineProvider withCSSVariables  withNormalizeCSS withGlobalStyles theme={theme}>
+      <MantineProvider withCssVariables theme={theme}>
         <JotaiProver store={customStore}>
           <DevTools store={customStore} />
           {/* <DebugAtoms /> */}

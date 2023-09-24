@@ -1,0 +1,22 @@
+.orderList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    padding: 1em;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+    gap: 1em;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.5em;
+    }
+}

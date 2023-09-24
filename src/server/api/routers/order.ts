@@ -1,12 +1,14 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
+const OrderStatusEnum = z.enum(['CREATED', 'PAID', 'STARTED', 'COMPLETED', 'CANCELLED']);
+
 export const orderRouter = createTRPCRouter({
     createOrder: protectedProcedure
         .input(z.object({
             name: z.string(),
             email: z.string().nullish(),
-            status: z.enum(['CREATED', 'PAID', 'STARTED', 'COMPLETED', 'CANCELLED']),
+            status: OrderStatusEnum,
             paymentMethodId: z.string().nullish(),
             amountTendered: z.number().nullish(),
             surcharge: z.number().nullish(),
@@ -39,6 +41,21 @@ export const orderRouter = createTRPCRouter({
                 }
             });
             return res;
-        })
+        }),
+    getOrders: protectedProcedure
+        .input(z.array(OrderStatusEnum))
+        .query(async ({ ctx, input }) => {
+            const res = await ctx.prisma.order.findMany({
+                where: {
+                    status: {
+                        in: input,
+                    },
+                },
+                include: {
+                    orderItems: true,
+                }
+            });
+            return res;
+        }),
 })
 
