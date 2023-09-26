@@ -1,11 +1,11 @@
 import { Loader, Paper } from "@mantine/core";
-import { api } from "~/utils/api";
-import { Order } from "~/model";
 import { useMemo } from "react";
-import { Pill } from '@mantine/core';
-import css from './OrderList.module.scss';
-import classNames from "classnames";
 import { OrderStatus } from "~/components/shared/OrderStatus";
+import { Order } from "~/model";
+import { api } from "~/utils/api";
+import css from './OrderList.module.scss';
+import dayjs from "dayjs";
+import classNames from "classnames";
 
 export function OrderList() {
     const { data, isLoading } = api.order.getOrders.useQuery(['CREATED', 'STARTED', 'PAID', 'COMPLETED']);
@@ -18,6 +18,7 @@ export function OrderList() {
 }
 
 function Order({ order }: { order: Order }) {
+    const orderDuration = dayjs.duration(dayjs().diff(dayjs(order.createdAt)))
     const total = useMemo(() => order.orderItems.reduce((acc, item) => acc + item.price, 0), []);
     return <Paper className={css.order} shadow="sm">
         <div className={css.row}>
@@ -26,7 +27,8 @@ function Order({ order }: { order: Order }) {
         </div>
         <div className={css.row}>
             <span>${total.toFixed(2)}</span>
-            <span>{order.createdAt} items</span>
+            <span className={classNames(orderDuration.asMinutes() > 5 && css.overdue)}>{dayjs(order.createdAt).fromNow()}</span>
+            
         </div>
     </Paper>
 }

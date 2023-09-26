@@ -9,6 +9,12 @@ import { type AppType } from "next/app";
 import "~/styles/globals.css";
 import "~/styles/theme.scss";
 import { api } from "~/utils/api";
+import relativeTime from 'dayjs/plugin/relativeTime'
+import duration from 'dayjs/plugin/duration'
+import dayjs from 'dayjs';
+
+dayjs.extend(relativeTime)
+dayjs.extend(duration)
 
 const theme = createTheme({
   colors: {

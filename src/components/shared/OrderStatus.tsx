@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 export function OrderStatus({ status }: { status: Order['status'] }) {
     return <Pill className={classNames(
+        css.status,
         status === 'CREATED' && css.created,
         status === 'STARTED' && css.started,
         status === 'PAID' && css.paid,
