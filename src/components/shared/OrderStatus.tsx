@@ -7,7 +7,7 @@ export function OrderStatus({ status }: { status: Order['status'] }) {
     return <Pill className={classNames(
         css.status,
         status === 'CREATED' && css.created,
-        status === 'STARTED' && css.started,
+        status === 'PREPARING' && css.preparing,
         status === 'PAID' && css.paid,
         status === 'COMPLETED' && css.completed)} >
         {status}

@@ -1,9 +1,11 @@
-.orderList {
+.orders {
     display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    width: 100%;
-    padding: 1em;
+    flex-direction: row;
+    flex-flow: wrap;
+
+    gap: 1em;
+    
+    padding: 0.5em;
 }
 
 .order {

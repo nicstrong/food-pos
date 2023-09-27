@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-const OrderStatusEnum = z.enum(['CREATED', 'PAID', 'STARTED', 'COMPLETED', 'CANCELLED']);
+const OrderStatusEnum = z.enum(['CREATED', 'PAID', 'PREPARING', 'COMPLETED', 'COLLECTED', 'CANCELLED']);
 
 export const orderRouter = createTRPCRouter({
     createOrder: protectedProcedure
