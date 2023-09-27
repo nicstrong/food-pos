@@ -14,4 +14,11 @@
   --theme-primary: var(--theme-primary-500);
   --background: white;
   --text-primary: black;
+
+  --order-new: var(--theme-primary-300);
+  --order-preparing: #fee1b2;
+  --order-done: #bbf9c5;
+  --order-collected: #bbc5f9;
+  --order-cancelled: #f9bbbb;
+  
 }

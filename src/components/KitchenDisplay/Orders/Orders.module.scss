@@ -11,16 +11,54 @@
 .order {
     display: flex;
     flex-direction: column;
-    padding: 0.5em 1em;
     font-size: 0.8em;
     gap: 1em;
 
-    .row {
+    width: 200px;
+
+    .top {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         gap: 0.5em;
+        padding: 0.5em 1em;
+
+        border-top-left-radius: var(--mantine-radius-sm);
+        border-top-right-radius: var(--mantine-radius-sm);
+
+
     }
+
+    
+}
+
+
+
+.time {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+.group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.divider {
+    // color: var(--mantine-color-gray-3);
+}
+.heading {
+    font-weight: 600;
 }
 
 .orderNumber {
@@ -29,4 +67,17 @@
 }
 .overdue {
     color: red;
+}
+
+.new {
+    background-color: var(--order-new);
+    
+}
+
+.preparing {
+    background-color: var(--order-preparing);
+}
+
+.done {
+    background-color: var(--order-done);
 }

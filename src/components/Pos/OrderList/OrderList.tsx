@@ -11,7 +11,6 @@ import classNames from "classnames";
 export function OrderList() {
     const { data, isLoading } = api.order.getOrders.useQuery(['CREATED', 'PREPARING', 'PAID', 'COMPLETED']);
 
-
     return <div className={css.orderList}>
         {isLoading && <Loader />}
         {!isLoading && data?.map(order => <Order key={order.id} order={order} />)}

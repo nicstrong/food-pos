@@ -4,13 +4,13 @@
 
 .created,
 .paid {
-    background-color: green;
+    background-color: var(--order-new);
 }
 
 .preparing {
-    background-color: blue;
+    background-color: var(--order-preparing);
 }
 
 .completed {
-    background-color: orange;
+    background-color: var(--order-done);
 }
