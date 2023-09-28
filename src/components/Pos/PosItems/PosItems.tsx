@@ -10,7 +10,7 @@ export function PosItems() {
   return (
     <div className={css.posItems}>
       <TextInput
-        icon={<MdOutlineSearch />}
+        leftSection={<MdOutlineSearch />}
         variant="filled"
         placeholder="Search menu items"
       />
